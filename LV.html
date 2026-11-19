@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffe8f0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<title>Chamodhi's Little Pink World ♡</title>
+<style>
+:root {
+  --pink: #f58caf;
+  --rose: #cf668c;
+  --deep: #b84a72;
+  --pale: #fff2f6;
+  --ink: #87536a;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(150deg, #fff9fb, #ffeaf2 55%, #f8efff);
+  color: var(--ink);
+  font-family: "Quicksand", system-ui, sans-serif;
+  text-align: center;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Step 1: Loader / Entry Screen */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #fff5f8, #ffdce8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  padding: 20px;
+  transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s;
+}
+.loader.hide {
+  opacity: 0;
+  transform: scale(1.06);
+  visibility: hidden;
+  pointer-events: none;
+}
+.loader .bear {
+  font-size: 82px;
+  animation: bob 0.85s ease-in-out infinite alternate;
+}
+.loadtext {
+  font: 800 26px/1.2 "Baloo 2", cursive;
+  color: var(--rose);
+  margin-top: 10px;
+}
+@keyframes bob {
+  to { transform: translateY(-14px) rotate(6deg); }
+}
+.enter-btn {
+  margin-top: 22px;
+  background: linear-gradient(110deg, #ff85ae, #e05c8d);
+  color: white;
+  border: 3px solid white;
+  border-radius: 999px;
+  padding: 15px 32px;
+  font: 700 17px "Quicksand", sans-serif;
+  box-shadow: 0 10px 25px #d45f8c45;
+  cursor: pointer;
+  animation: pulseBtn 1.8s infinite;
+  transition: transform 0.2s;
+}
+.enter-btn:active { transform: scale(0.95); }
+@keyframes pulseBtn {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Progress Dots */
+.progress-bar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #f3c6d6;
+  transition: all 0.35s ease;
+}
+.dot.active {
+  width: 26px;
+  border-radius: 10px;
+  background: var(--rose);
+}
+
+/* Main Container & Step Transitions */
+main {
+  width: min(520px, 92%);
+  margin: auto;
+  padding: 20px 0 65px;
+  position: relative;
+  z-index: 2;
+}
+.step {
+  display: none;
+  animation: slideUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.step.active { display: block; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+h1 { font: 800 clamp(38px, 10vw, 54px)/1.05 "Baloo 2", cursive; color: #d26089; margin: 6px 0; }
+h2 { font: 700 28px/1.15 "Baloo 2", cursive; color: #cf668c; margin: 8px 0; }
+.sub { line-height: 1.65; max-width: 420px; margin: 10px auto 18px; font-size: 15px; }
+.tiny { font-size: 12.5px; color: #ad7b90; font-weight: 600; }
+
+.card {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(8px);
+  border: 2px solid white;
+  border-radius: 30px;
+  padding: 26px 20px;
+  box-shadow: 0 14px 35px #c66b8d1c;
+}
+
+.btn {
+  background: linear-gradient(100deg, #ff9fbd, #e879a5);
+  color: white;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 24px;
+  font: 700 15px "Quicksand", sans-serif;
+  margin: 6px;
+  box-shadow: 0 6px 18px #d45f8c35;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px #d45f8c45; }
+.btn:active { transform: scale(0.96); }
+.btn.alt {
+  background: #fff0f5;
+  color: #b9577d;
+  border: 1.5px solid #f5c8d8;
+  box-shadow: none;
+}
+
+/* Couple Photos */
+.couple {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 18px auto 10px;
+}
+.photo-wrap {
+  width: min(37vw, 155px);
+  aspect-ratio: 1;
+  border: 5px solid white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px #d45f8c2b;
+  transform: rotate(-3deg);
+}
+.photo-wrap:nth-child(3) { transform: rotate(3deg); }
+.photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.between { font-size: 26px; animation: pulse 1.3s infinite; }
+@keyframes pulse { 50% { transform: scale(1.28); } }
+
+/* Letter Styling */
+.letter-box {
+  background: #fff9fb;
+  border: 1.5px dashed #e9a3bd;
+  border-radius: 20px;
+  padding: 20px 18px;
+  line-height: 1.85;
+  margin: 16px 0;
+  text-align: left;
+  font-size: 15.5px;
+  box-shadow: inset 0 0 15px #ffeaf2;
+}
+
+/* Delete Game Styling */
+.paper {
+  display: inline-block;
+  background: linear-gradient(145deg, #fffafd, #ffeaf2);
+  border: 1.5px solid #f5c6d7;
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin: 5px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 5px 14px #c66b8d18;
+  animation: paperfloat 1.8s ease-in-out infinite alternate;
+}
+.paper:nth-child(even) { animation-delay: 0.3s; }
+@keyframes paperfloat { to { transform: translateY(-7px) rotate(4deg); } }
+@keyframes tossToBin {
+  0% { opacity: 1; transform: translate(0, 0) rotate(0) scale(1); }
+  45% { opacity: 1; transform: translate(var(--dx), -65px) rotate(150deg) scale(0.82); }
+  100% { opacity: 0; transform: translate(var(--dx), 95px) rotate(520deg) scale(0.12); }
+}
+.paper.toss { animation: tossToBin 0.95s cubic-bezier(0.25, 0.7, 0.25, 1) forwards; pointer-events: none; }
+.bin { font-size: 64px; margin: 10px; display: inline-block; transition: transform 0.35s; }
+.bin.open { transform: scale(1.2) rotate(-8deg); }
+.game-result { min-height: 28px; font-weight: 700; color: #c45e86; line-height: 1.6; margin-top: 10px; }
+
+/* Step 5: Wish / Love Coupon Grid */
+.wish-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0;
+}
+.wish-card {
+  background: #fff5f8;
+  border: 2px solid #f8cde0;
+  border-radius: 18px;
+  padding: 14px 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--rose);
+}
+.wish-card:hover, .wish-card.selected {
+  background: linear-gradient(135deg, #ff9fbd, #e879a5);
+  color: white;
+  border-color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px #d45f8c35;
+}
+.wish-icon { font-size: 28px; display: block; margin-bottom: 5px; }
+
+/* Floating Stickers & Music Button */
+.sticker { position: fixed; z-index: 1; pointer-events: none; opacity: 0.75; font-size: 24px; animation: float 6s ease-in-out infinite; }
+.s1 { left: 5%; top: 14%; }
+.s2 { right: 6%; top: 20%; animation-delay: 1s; }
+.s3 { left: 7%; bottom: 13%; animation-delay: 2s; }
+.s4 { right: 7%; bottom: 15%; animation-delay: 3s; }
+@keyframes float { 50% { transform: translateY(-18px) rotate(12deg); } }
+
+.music {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 15;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid white;
+  background: #ee8eb0;
+  color: white;
+  font-size: 21px;
+  box-shadow: 0 5px 18px #bd668a55;
+  cursor: pointer;
+  animation: musicpulse 2s infinite;
+}
+@keyframes musicpulse { 50% { box-shadow: 0 5px 25px #bd668a88, 0 0 0 8px #f8b9cf44; } }
+
+#floaties { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 10; }
+.fly { position: absolute; bottom: -30px; animation: rise 3.8s linear forwards; }
+@keyframes rise { to { transform: translateY(-110vh) rotate(35deg); opacity: 0; } }
+
+footer { margin-top: 18px; color: #b77d94; font-size: 12.5px; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- STEP 1: LOADING & AUTO-PLAY TRIGGER -->
+<div class="loader" id="loader">
+  <div class="bear">🧸</div>
+  <div class="loadtext">A Little World for Chamodhi ♡</div>
+  <div class="tiny" id="loadStatus">Preparing something sweet for you...</div>
+  <button class="enter-btn" id="enterBtn" onclick="enterWorld()">Tap to Enter &amp; Play Music 🎵💗</button>
+  <div class="tiny" style="margin-top:16px">made with love by ALPHA</div>
+</div>
+
+<div class="sticker s1">🎀</div>
+<div class="sticker s2">🌷</div>
+<div class="sticker s3">✨</div>
+<div class="sticker s4">💗</div>
+<div id="floaties"></div>
+
+<button class="music" id="musicBtn" aria-label="Play or pause music" onclick="toggleMusic()">♫</button>
+<audio id="song" src="https://files.catbox.moe/88qir6.mp3" preload="auto" loop></audio>
+
+<main>
+  <!-- Step Progress Indicator -->
+  <div class="progress-bar" id="progressBar">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <!-- STEP 2: HOME PAGE -->
+  <section class="card step active" id="step1">
+    <div style="font-size:32px">🧸🎀🌸</div>
+    <h1>Hi Chamodhi!</h1>
+    <p class="sub">Welcome to our little pink corner. A few smiles, sweet stickers and lovely moments are waiting here just for you.</p>
+    <div class="couple">
+      <div class="photo-wrap"><img src="https://files.catbox.moe/eklp86.png" alt="Akash"></div>
+      <div class="between">💗</div>
+      <div class="photo-wrap"><img src="https://files.catbox.moe/5didgk.png" alt="Chamodhi"></div>
+    </div>
+    <p class="tiny">Akash ♡ Chamodhi</p>
+    <div style="margin-top:18px">
+      <button class="btn" onclick="goToStep(2)">Next: Open Your Letter 💌 ➔</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: LETTER PAGE -->
+  <section class="card step" id="step2">
+    <div style="font-size:40px">💌✨</div>
+    <h2>A Little Note For You</h2>
+    <div class="letter-box">
+      Dear Chamodhi,<br><br>
+      I made this little pink place just to see you smile. No matter how busy or tiring the day gets, I always hope your heart is filled with kindness, peace, and sweet surprises.<br><br>
+      Thank you for being your wonderful, lovely self. Keep shining always! 🌷<br><br>
+      With lots of care,<br>
+      <strong>Akash ♡</strong>
+    </div>
+    <div>
+      <button class="btn alt" onclick="goToStep(1)">⬅ Back</button>
+      <button class="btn" onclick="goToStep(3)">Next: Memory Game 🧸 ➔</button>
+    </div>
+  </section>
+
+  <!-- STEP 4: DELETE GAME -->
+  <section class="card step" id="step3">
+    <div style="font-size:42px">🧸💗</div>
+    <h2>A Little Memory Game</h2>
+    <p class="sub">Let's clear away all the pretend old worries and sad days to make space for fresh, happy moments together!</p>
+    <div id="notes">
+      <span class="paper">old worries ♡</span>
+      <span class="paper">sad days 🌧️</span>
+      <span class="paper">little doubts 💭</span>
+    </div>
+    <div class="bin" id="bin">🗑️</div>
+    <div id="gameButtons">
+      <button class="btn" onclick="clearPretendNotes()">Clear Old Notes 💗</button>
+    </div>
+    <div class="game-result" id="gameResult"></div>
+    <div style="margin-top:16px">
+      <button class="btn alt" onclick="goToStep(2)">⬅ Back</button>
+      <button class="btn" id="step3NextBtn" onclick="goToStep(4)">Final Surprise 🎁 ➔</button>
+    </div>
+  </section>
+
+  <!-- STEP 5: FINAL SURPRISE (LOVE COUPON / WISH JAR) -->
+  <section class="card step" id="step4">
+    <div style="font-size:44px">🎁💖</div>
+    <h2>One Last Surprise!</h2>
+    <p class="sub">Pick your favorite special treat below! Once you choose, tap the button to send your wish straight to Akash. 🌸</p>
+
+    <div class="wish-grid">
+      <div class="wish-card" onclick="selectWish(this, 'Ice Cream & Sweet Treats Date 🍦')">
+        <span class="wish-icon">🍦</span>Ice Cream Date
+      </div>
+      <div class="wish-card" onclick="selectWish(this, 'A Long Evening Walk & Talk 🌅')">
+        <span class="wish-icon">🌅</span>Evening Walk
+      </div>
+      <div class="wish-card" onclick="selectWish(this, 'A Cute Surprise Gift 🧸')">
+        <span class="wish-icon">🧸</span>Cute Surprise
+      </div>
+      <div class="wish-card" onclick="selectWish(this, 'Unlimited Smiles & Good Vibes ✨')">
+        <span class="wish-icon">✨</span>All of Them!
+      </div>
+    </div>
+
+    <div id="wishConfirm" class="game-result"></div>
+
+    <div style="margin-top:14px">
+      <button class="btn" id="whatsappBtn" onclick="sendWishToWhatsApp()">Send Wish to Akash 💬💗</button>
+    </div>
+    <div style="margin-top:8px">
+      <button class="btn alt" onclick="goToStep(1)">↺ Replay Journey</button>
+    </div>
+  </section>
+
+  <footer>made with ♡ by ALPHA for Chamodhi</footer>
+</main>
+
+<script>
+const song = document.getElementById('song');
+const musicBtn = document.getElementById('musicBtn');
+let selectedWishText = "a sweet surprise from our little pink world";
+
+function setMusicButton(playing) {
+  musicBtn.textContent = playing ? 'Ⅱ' : '♫';
+  musicBtn.title = playing ? 'Pause music' : 'Play music';
+}
+
+// 1. Enter World & Start Music Immediately (Guaranteed to work on click!)
+function enterWorld() {
+  song.muted = false;
+  song.volume = 0.85;
+  const playPromise = song.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      setMusicButton(true);
+    }).catch(() => {
+      setMusicButton(false);
+    });
+  }
+  document.getElementById('loader').classList.add('hide');
+  sprinkle(24);
+}
+
+// Also attempt silent/auto play just in case browser allows it
+window.addEventListener('load', () => {
+  song.play().then(() => setMusicButton(true)).catch(() => {});
+});
+
+function toggleMusic() {
+  if (song.paused) {
+    song.play().then(() => setMusicButton(true));
+  } else {
+    song.pause();
+    setMusicButton(false);
+  }
+}
+
+// 2. Step-by-Step Navigation
+function goToStep(stepNumber) {
+  document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+  document.getElementById('step' + stepNumber).classList.add('active');
+
+  // Update progress dots
+  const dots = document.querySelectorAll('.dot');
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === stepNumber - 1);
+  });
+
+  sprinkle(14);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 3. Delete Game Logic
+function clearPretendNotes() {
+  const notes = document.getElementById('notes');
+  const papers = [...notes.querySelectorAll('.paper')];
+  const bin = document.getElementById('bin');
+  const gameButtons = document.getElementById('gameButtons');
+  const result = document.getElementById('gameResult');
+
+  gameButtons.style.display = 'none';
+  bin.classList.add('open');
+  bin.textContent = '🗑️💖';
+
+  papers.forEach((paper, index) => {
+    paper.style.setProperty('--dx', ((index - (papers.length - 1) / 2) * 28) + 'px');
+    setTimeout(() => paper.classList.add('toss'), index * 180);
+  });
+
+  sprinkle(20);
+
+  setTimeout(() => {
+    notes.style.display = 'none';
+    bin.textContent = '✨🗑️✨';
+    result.innerHTML = '✨ All cleared! Only happy days ahead for us. 💗';
+    sprinkle(20);
+  }, 1150);
+}
+
+// 4. Final Surprise Wish Selection
+function selectWish(cardElement, wishText) {
+  document.querySelectorAll('.wish-card').forEach(c => c.classList.remove('selected'));
+  cardElement.classList.add('selected');
+  selectedWishText = wishText;
+  document.getElementById('wishConfirm').textContent = `Yay! You picked: "${wishText}" 🎀`;
+  sprinkle(22);
+}
+
+function sendWishToWhatsApp() {
+  sprinkle(30);
+  const msg = encodeURIComponent(`Hi Akash! ♡ I just visited Chamodhi's Little Pink World and I claim my wish: ${selectedWishText} 🌷✨`);
+  // Opens WhatsApp with pre-filled cute message
+  window.open(`https://wa.me/?text=${msg}`, '_blank', 'noopener,noreferrer');
+  // Note: If you want it to go directly to your specific wa.link, replace the line above with:
+  // window.open('https://wa.link/jt9l8p', '_blank', 'noopener,noreferrer');
+}
+
+// Floating Hearts Effect
+function sprinkle(count = 18) {
+  const container = document.getElementById('floaties');
+  const icons = ['💗', '💕', '✨', '🌸', '🎀'];
+  for (let i = 0; i < count; i++) {
+    let x = document.createElement('span');
+    x.className = 'fly';
+    x.textContent = icons[Math.floor(Math.random() * icons.length)];
+    x.style.left = Math.random() * 100 + '%';
+    x.style.fontSize = (18 + Math.random() * 18) + 'px';
+    x.style.animationDuration = (2.6 + Math.random() * 2) + 's';
+    container.appendChild(x);
+    setTimeout(() => x.remove(), 4800);
+  }
+}
+</script>
+</body>
+</html>
